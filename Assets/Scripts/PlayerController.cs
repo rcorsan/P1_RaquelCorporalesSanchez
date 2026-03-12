@@ -7,10 +7,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fuerzasuelo = 30.0f;
     [SerializeField] private Rigidbody rb;
     private bool isGrounded;
+    private Vector3 posicionRespawn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = this.GetComponent<Rigidbody>();
+        posicionRespawn = transform.position;
     }
 
     // Update is called once per frame
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
     //MOVIMIENTO
        float horiz = Input.GetAxis("Horizontal");
        float verti = Input.GetAxis("Vertical");
-       Debug.Log("Valor Vertical: " + verti);
+       //Debug.Log("Valor Vertical: " + verti);
 
        Vector3 movimient= new Vector3(horiz*velocidad,rb.linearVelocity.y,verti*velocidad);
        rb.linearVelocity =movimient;
@@ -41,6 +43,12 @@ public class PlayerController : MonoBehaviour
             {
             isGrounded = true;
             }
+    }
+    public void Respawn()
+    {
+        transform.position = posicionRespawn;
+        
+        rb.linearVelocity = Vector3.zero; 
     }
 
 }
